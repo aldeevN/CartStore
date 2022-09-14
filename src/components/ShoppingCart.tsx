@@ -1,4 +1,4 @@
-import { Popover, Button, Box, Typography } from "@mui/material"
+import { Modal, Button, Box, Typography } from "@mui/material"
 import { useShoppingCart } from "./contex/ShoppingCartContext"
 import { formatCurrency } from "./CurrencyFormater"
 import { CartItem } from "./CartItem"
@@ -7,26 +7,37 @@ type ShoppingCartProps = {
     isOpen: boolean
 }
 
-const style = {
-    position: 'absolute' as 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
-};
+// const style = {
+//     position: 'absolute' as 'absolute',
+//     top: '50%',
+//     left: '50%',
+//     transform: 'translate(-50%, -50%)',
+//     width: 500,
+//     bgcolor: 'background.paper',
+//     border: '2px solid #000',
+//     boxShadow: 24,
+//     p: 4,
+// };
 
 export function ShoppingCart({ isOpen }: ShoppingCartProps) {
     const { closeCart, cartItems } = useShoppingCart()
     return (
-        <Box>
-            <Popover
-                open={isOpen}
-                onClose={closeCart}    >
-                <Box sx={{ style }}>
+        <div>
+            <Modal
+                open={isOpen} onClose={closeCart}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description">
+                <Box sx={{
+                    position: 'absolute' as 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    width: 500,
+                    bgcolor: 'background.paper',
+                    border: '2px solid #000',
+                    boxShadow: 24,
+                    p: 4,
+                }}>
                     <Typography id="modal-modal-title" variant="h6" component="h2">
                         Cart
                     </Typography>
@@ -34,7 +45,7 @@ export function ShoppingCart({ isOpen }: ShoppingCartProps) {
                     {cartItems.map(item => (
                         <CartItem key={item.id} {...item} />
                     ))}
-                    <div className="ms-auto fw-bold fs-5">
+                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                         Total{" "}
                         {formatCurrency(
                             cartItems.reduce((total, cartItem) => {
@@ -42,11 +53,11 @@ export function ShoppingCart({ isOpen }: ShoppingCartProps) {
                                 return total + (item?.price || 0) * cartItem.quantity
                             }, 0)
                         )}
-                    </div>
+                    </Typography>
                 </Box>
 
-            </Popover>
-        </Box>
+            </Modal>
+        </div>
 
     )
 }
