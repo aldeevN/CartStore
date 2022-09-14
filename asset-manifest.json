@@ -1,0 +1,10 @@
+{
+  "files": {
+    "main.js": "/CartStore/static/js/main.a6bc5ba8.js",
+    "index.html": "/CartStore/index.html",
+    "main.a6bc5ba8.js.map": "/CartStore/static/js/main.a6bc5ba8.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.a6bc5ba8.js"
+  ]
+}
